@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Chotu 🎉</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: white;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+/* Landing */
+#startScreen {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 20px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(45deg, #ff00cc, #3333ff);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255,0,255,0.6);
+}
+
+/* Hidden content */
+#mainContent {
+    display: none;
+    padding: 20px;
+}
+
+/* Glow text */
+.glow {
+    font-size: 40px;
+    font-family: 'Pacifico', cursive;
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
+}
+
+/* Gallery */
+.gallery {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.gallery img {
+    width: 200px;
+    border-radius: 15px;
+}
+
+/* Card */
+.card {
+    width: 250px;
+    height: 300px;
+    margin: 30px auto;
+    perspective: 1000px;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: 0.8s;
+}
+
+.card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.card-front {
+    background: #ff4d6d;
+}
+
+.card-back {
+    background: #1a1a2e;
+    transform: rotateY(180deg);
+}
+
+/* Balloons */
+.balloon {
+    position: fixed;
+    bottom: -100px;
+    width: 30px;
+    height: 40px;
+    background: pink;
+    border-radius: 50%;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-120vh); }
+}
+
+/* Music Button */
+.music-btn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="startScreen">
+    <button onclick="startSurprise()">Click for a Surprise 🎁</button>
+</div>
+
+<div id="mainContent">
+    <h1 class="glow" id="typing"></h1>
+
+    <!-- Gallery -->
+    <div class="gallery">
+        <img src="img1.jpg">
+        <img src="img2.jpg">
+        <img src="img3.jpg">
+        <img src="img4.jpg">
+	<img src="img6.jpg">
+	<img src="img7.jpg">
+	<img src="img8.jpg">
+    </div>
+
+    <!-- Flip Card -->
+    <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                😺😺
+            </div>
+            <div class="card-back">
+                Dear Chotu,<br>
+                May your life be filled with happiness, success, and love.<br>
+                Keep smiling always 😊
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Music -->
+<audio id="music" loop>
+    <source src="https://www.fesliyanstudios.com/play-mp3/387" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+<script>
+function startSurprise() {
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+
+    document.getElementById("music").play();
+
+    typeText();
+    createBalloons();
+    confettiEffect();
+}
+
+let text = [
+    "Happy Birthday Chotu 🎉",
+    "🎂🎂🎂🎂",
+    " Boro ho jibone 😉bhalo chele pota✨sara jibon jate tui chotu giri kore jas etai chai 😁"
+];
+
+let i = 0, j = 0;
+function typeText() {
+    let element = document.getElementById("typing");
+    if (i < text.length) {
+        if (j < text[i].length) {
+            element.innerHTML += text[i].charAt(j);
+            j++;
+            setTimeout(typeText, 50);
+        } else {
+            element.innerHTML += "<br>";
+            i++;
+            j = 0;
+            setTimeout(typeText, 500);
+        }
+    }
+}
+
+function createBalloons() {
+    for (let i = 0; i < 20; i++) {
+        let b = document.createElement("div");
+        b.className = "balloon";
+        b.style.left = Math.random() * 100 + "vw";
+        b.style.background = `hsl(${Math.random()*360}, 100%, 70%)`;
+        document.body.appendChild(b);
+    }
+}
+
+function toggleMusic() {
+    let music = document.getElementById("music");
+    if (music.paused) music.play();
+    else music.pause();
+}
+
+/* Simple Confetti */
+function confettiEffect() {
+    for (let i = 0; i < 100; i++) {
+        let conf = document.createElement("div");
+        conf.style.position = "fixed";
+        conf.style.width = "5px";
+        conf.style.height = "5px";
+        conf.style.background = "white";
+        conf.style.top = Math.random() * 100 + "vh";
+        conf.style.left = Math.random() * 100 + "vw";
+        conf.style.animation = "float 3s linear infinite";
+        document.body.appendChild(conf);
+    }
+}
+</script>
+
+</body>
+</html>
